@@ -19,7 +19,7 @@ class ListBooks extends Component {
   }
 
   render() {
-    const { books } = this.props;
+    const { books, onChangeCategory } = this.props;
     const { query } = this.state;
 
     let showingBooks;
@@ -48,7 +48,7 @@ class ListBooks extends Component {
           <ol className="books-grid">
             {query && showingBooks.map(book => (
               <li key={book.id}>
-                <Book {...book} />
+                <Book {...book} onChangeCategory={onChangeCategory}/>
               </li>
             ))}
           </ol>

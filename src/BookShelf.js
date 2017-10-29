@@ -12,7 +12,7 @@ const BookShelf = (props) => {
             .filter((book) => props.shelf === book.shelf)
             .map(book => (
               <li key={book.id}>
-                <Book {...book} />
+                <Book {...book} onChangeCategory={props.onChangeCategory} />
               </li>
           ))}
         </ol>
@@ -23,7 +23,7 @@ const BookShelf = (props) => {
 
 BookShelf.propTypes = {
   title: PropTypes.string.isRequired,
-  books: PropTypes.array,
+  books: PropTypes.array.isRequired,
   shelf: PropTypes.string.isRequired
 }
 

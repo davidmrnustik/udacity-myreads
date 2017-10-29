@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Book extends Component {
+  onChangeCategory = (id, category) => {
+    this.props.onChangeCategory(id, category);
+  }
+
   render() {
-    const { imageLinks, shelf, title, authors, onChangeCategory } = this.props;
+    const { id, imageLinks, shelf, title, authors } = this.props;
 
     return (
       <div className="book">
@@ -18,7 +22,7 @@ class Book extends Component {
           </div>
           <div className="book-shelf-changer">
             <select
-              onChange={(event) => this.onChangeCategory(event.target.value)}
+              onChange={(event) => this.onChangeCategory(id, event.target.value)}
               value={shelf}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
@@ -36,6 +40,7 @@ class Book extends Component {
 }
 
 Book.propTypes = {
+  id: PropTypes.string,
   imageLinks: PropTypes.object,
   shelf: PropTypes.string,
   title: PropTypes.string,

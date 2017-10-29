@@ -17,6 +17,19 @@ class BooksApp extends Component {
       })
   }
 
+  changeCategory = (id, category) => {
+    BooksAPI.get(id).then(data => {
+      let updatedBook = data;
+      updatedBook.shelf = category;
+
+      this.setState((state) => ({
+        books: state.books.filter(book => book.id !== id).concat([ updatedBook ])
+      }))
+    });
+
+    BooksAPI.update({ id }, category);
+  }
+
   render() {
     const { books } = this.state;
 
@@ -33,16 +46,19 @@ class BooksApp extends Component {
                   title="Currently Reading"
                   books={books}
                   shelf="currentlyReading"
+                  onChangeCategory={this.changeCategory}
                 />
                 <BookShelf
                   title="Want to Read"
                   books={books}
                   shelf="wantToRead"
+                  onChangeCategory={this.changeCategory}
                 />
                 <BookShelf
                   title="Read"
                   books={books}
                   shelf="read"
+                  onChangeCategory={this.changeCategory}
                 />
               </div>
             </div>
@@ -52,7 +68,10 @@ class BooksApp extends Component {
           </div>
         )}/>
         <Route path="/search" render={() => (
-          <ListBooks books={books} />
+          <ListBooks
+            books={books}
+            onChangeCategory={this.changeCategory}
+          />
         )}/>
       </div>
     )
