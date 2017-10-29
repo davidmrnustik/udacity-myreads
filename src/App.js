@@ -32,14 +32,17 @@ class BooksApp extends Component {
                 <BookShelf
                   title="Currently Reading"
                   books={books}
+                  shelf="currentlyReading"
                 />
                 <BookShelf
                   title="Want to Read"
                   books={books}
+                  shelf="wantToRead"
                 />
                 <BookShelf
                   title="Read"
                   books={books}
+                  shelf="read"
                 />
               </div>
             </div>

@@ -6,6 +6,10 @@ import sortBy from 'sort-by';
 import escapeRegExp from 'escape-string-regexp';
 
 class ListBooks extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired
+  }
+
   state = {
     query: ''
   }
@@ -44,12 +48,7 @@ class ListBooks extends Component {
           <ol className="books-grid">
             {query && showingBooks.map(book => (
               <li key={book.id}>
-                <Book
-                  id={book.id}
-                  cover={book.imageLinks.smallThumbnail}
-                  title={book.title}
-                  authors={book.authors}
-                />
+                <Book {...book} />
               </li>
             ))}
           </ol>
