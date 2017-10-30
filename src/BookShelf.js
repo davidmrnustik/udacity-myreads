@@ -38,10 +38,12 @@ class BookShelf extends Component {
 
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{title} <span className="bookshelf-count">({bookshelfCount})</span></h2>
-          {bookshelfCount === 0 && (
-            <p>There is no book in this bookshelf.</p>
-          )}
+        <h2 className="bookshelf-title">
+          {title} <span className="bookshelf-count">({bookshelfCount})</span>
+        </h2>
+        {bookshelfCount === 0 && (
+          <p>There is no book in this bookshelf.</p>
+        )}
         <div className="bookshelf-books">
           {bookshelfCount > 0 && (
             <ol className="books-grid">

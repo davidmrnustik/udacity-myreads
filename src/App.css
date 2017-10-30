@@ -133,6 +133,11 @@ body, .app {
 .book-title {
   margin-top: 10px;
 }
+.book-title:hover {
+  text-decoration: underline;
+  color: #2e7c31;
+  cursor: pointer;
+}
 .book-authors {
   color: #999;
 }
@@ -170,6 +175,7 @@ body, .app {
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   background: #eee;
+  cursor: pointer;
 }
 .book-cover-title {
   padding: 20px 10px 0;
