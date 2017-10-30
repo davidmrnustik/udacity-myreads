@@ -38,7 +38,6 @@ export const ModalCustomStyles = {
     marginRight: 20
   },
   modalDescription: {
-    // float: 'left',
     maxWidth: 400,
     fontSize: 13,
     marginBottom: 5

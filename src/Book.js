@@ -6,6 +6,10 @@ import { ModalCustomStyles } from './ModalCustomStyles';
 import Truncate from 'react-truncate';
 import ReactStars from 'react-stars';
 
+/**
+ * Book receives book details props and renders this information.
+ * There is a modal window that shows more information.
+ */
 class Book extends Component {
   state = {
     modalIsOpen: false
@@ -28,10 +32,10 @@ class Book extends Component {
     const { modalIsOpen } = this.state;
 
     return (
-      <div className="book">
-        <div className="book-top">
+      <div className='book'>
+        <div className='book-top'>
           <div
-            className="book-cover"
+            className='book-cover'
             onClick={this.openModal}
             style={{
               width: 128,
@@ -39,7 +43,7 @@ class Book extends Component {
               backgroundImage: `url(${imageLinks.smallThumbnail})`
             }}>
           </div>
-          <div className="book-shelf-changer">
+          <div className='book-shelf-changer'>
             <SelectCategory
               shelf={shelf}
               id={id}
@@ -47,15 +51,15 @@ class Book extends Component {
             />
           </div>
         </div>
-        <div className="book-title" onClick={this.openModal}>{title}</div>
-        <div className="book-authors">{authors.join(', ')}</div>
+        <div className='book-title' onClick={this.openModal}>{title}</div>
+        <div className='book-authors'>{authors.join(', ')}</div>
 
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={this.modalIsClose}
           style={ModalCustomStyles}
           shouldCloseOnOverlayClick={true}
-          contentLabel="Book detail"
+          contentLabel='Book detail'
         >
           <div style={ModalCustomStyles.modalTitle}>{title}</div>
           <div style={ModalCustomStyles.modalCover}>
@@ -73,7 +77,7 @@ class Book extends Component {
             <div style={ModalCustomStyles.modalDescription}>
               <Truncate
                 lines={3}
-                ellipsis={<span>... <a href={infoLink} target="_blank">Read more</a></span>}
+                ellipsis={<span>... <a href={infoLink} target='_blank'>Read more</a></span>}
               >
                 {description}
               </Truncate>

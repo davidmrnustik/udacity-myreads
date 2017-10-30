@@ -6,6 +6,10 @@ import ListBooks from './ListBooks';
 import BookShelf from './BookShelf';
 import WaitingScreen from './WaitingScreen';
 
+/**
+ * BooksApp fetches data from BooksAPI and handles
+ * routes for BookShelf and ListBooks components.
+ */
 class BooksApp extends Component {
   state = {
     books: [],
@@ -35,9 +39,9 @@ class BooksApp extends Component {
   }
 
   render() {
-    const { books } = this.state;
+    const { books, loading } = this.state;
 
-    if (this.state.loading) return <WaitingScreen text='Loading, please wait...' />;
+    if (loading) return <WaitingScreen text='Loading, please wait...' />;
 
     return (
       <div className='app'>

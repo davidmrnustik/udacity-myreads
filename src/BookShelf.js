@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 import sortBy from 'sort-by';
 import WaitingScreen from './WaitingScreen';
 
+/**
+ * BookShelf renders BookShelf or Category of books.
+ * It receives filtered books props and renders
+ * Book components.
+ */
 class BookShelf extends Component {
 
   state = {
@@ -23,7 +28,7 @@ class BookShelf extends Component {
     const { title, books } = this.props;
     const { loading } = this.state;
 
-    if (loading) return <WaitingScreen text="Updating bookshelves..." />;
+    if (loading) return <WaitingScreen text='Updating bookshelves...' />;
 
     let bookshelves = books
       .sort(sortBy('title'))
@@ -31,21 +36,21 @@ class BookShelf extends Component {
         <li key={book.id}>
           <Book {...book} onChangeCategory={this.changeCategory} />
         </li>
-      ))
+      ));
 
     let bookshelfCount = bookshelves.length;
 
     return (
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">
-          {title} <span className="bookshelf-count">({bookshelfCount})</span>
+      <div className='bookshelf'>
+        <h2 className='bookshelf-title'>
+          {title} <span className='bookshelf-count'>({bookshelfCount})</span>
         </h2>
         {bookshelfCount === 0 && (
           <p>There is no book in this bookshelf.</p>
         )}
-        <div className="bookshelf-books">
+        <div className='bookshelf-books'>
           {bookshelfCount > 0 && (
-            <ol className="books-grid">
+            <ol className='books-grid'>
               {bookshelves}
             </ol>
           )}

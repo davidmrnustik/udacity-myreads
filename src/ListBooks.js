@@ -6,6 +6,11 @@ import sortBy from 'sort-by';
 import escapeRegExp from 'escape-string-regexp';
 import WaitingScreen from './WaitingScreen';
 
+/**
+ * ListBooks handles search functionality that matches
+ * input query. It receives books props and renders
+ * input form and Book components.
+ */
 class ListBooks extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
@@ -34,7 +39,7 @@ class ListBooks extends Component {
     const { books } = this.props;
     const { query, loading } = this.state;
 
-    if (loading) return <WaitingScreen text="Updating books list..." />;
+    if (loading) return <WaitingScreen text='Updating books list...' />;
 
     let showingBooks;
     if (query) {
@@ -45,22 +50,22 @@ class ListBooks extends Component {
 
     return (
       <div>
-        <div className="search-books-bar">
+        <div className='search-books-bar'>
           <Link
-            to="/"
-            className="close-search"
+            to='/'
+            className='close-search'
           >Close search</Link>
           <input
-            type="text"
+            type='text'
             value={query}
             onChange={(event) => this.updateQuery(event.target.value)}
-            className="search-books-input-wrapper"
-            placeholder="Search by Title or Author"
+            className='search-books-input-wrapper'
+            placeholder='Search by Title or Author'
           />
         </div>
 
-        <div className="search-books-results">
-          <ol className="books-grid">
+        <div className='search-books-results'>
+          <ol className='books-grid'>
             {query && showingBooks.map(book => (
               <li key={book.id}>
                 <Book {...book} onChangeCategory={this.changeCategory}/>

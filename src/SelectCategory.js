@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * SelectCategory receives id and shelf props and renders
+ * select form with book categories.
+ */
 class SelectCategory extends Component {
   onChangeCategory = (id, category) => {
     this.props.onChangeCategory(id, category);
@@ -13,11 +17,11 @@ class SelectCategory extends Component {
       <select
         onChange={(event) => this.onChangeCategory(id, event.target.value)}
         value={shelf}>
-        <option value="none" disabled>Move to...</option>
-        <option value="currentlyReading">Currently Reading</option>
-        <option value="wantToRead">Want to Read</option>
-        <option value="read">Read</option>
-        <option value="none">None</option>
+        <option value='none' disabled>Move to...</option>
+        <option value='currentlyReading'>Currently Reading</option>
+        <option value='wantToRead'>Want to Read</option>
+        <option value='read'>Read</option>
+        <option value='none'>None</option>
       </select>
     )
   }
