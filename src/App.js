@@ -4,16 +4,20 @@ import * as BooksAPI from './BooksAPI';
 import { Route, Link } from 'react-router-dom';
 import ListBooks from './ListBooks';
 import BookShelf from './BookShelf';
+import WaitingScreen from './WaitingScreen';
 
 class BooksApp extends Component {
   state = {
-    books: []
+    books: [],
+    loading: false
   }
 
   componentDidMount() {
+    this.setState({ loading: true});
+
     BooksAPI.getAll()
       .then((books) => {
-        this.setState({ books })
+        this.setState({ books, loading: false })
       })
   }
 
@@ -32,6 +36,8 @@ class BooksApp extends Component {
 
   render() {
     const { books } = this.state;
+
+    if (this.state.loading) return <WaitingScreen text="Loading, please wait..." />;
 
     return (
       <div className="app">

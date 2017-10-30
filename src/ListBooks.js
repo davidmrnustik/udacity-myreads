@@ -4,23 +4,37 @@ import { Link } from 'react-router-dom';
 import Book from './Book';
 import sortBy from 'sort-by';
 import escapeRegExp from 'escape-string-regexp';
+import WaitingScreen from './WaitingScreen';
 
 class ListBooks extends Component {
   static propTypes = {
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    onChangeCategory: PropTypes.func.isRequired
   }
 
   state = {
-    query: ''
+    query: '',
+    loading: false
   }
 
   updateQuery = (query) => {
     this.setState({ query: query.trim() })
   }
 
+  changeCategory = (id, category) => {
+    this.setState({ loading: true });
+    this.props.onChangeCategory(id, category);
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ loading: false });
+  }
+
   render() {
-    const { books, onChangeCategory } = this.props;
-    const { query } = this.state;
+    const { books } = this.props;
+    const { query, loading } = this.state;
+
+    if (loading) return <WaitingScreen text="Updating books list..." />;
 
     let showingBooks;
     if (query) {
@@ -38,6 +52,7 @@ class ListBooks extends Component {
           >Close search</Link>
           <input
             type="text"
+            value={query}
             onChange={(event) => this.updateQuery(event.target.value)}
             className="search-books-input-wrapper"
             placeholder="Search by Title or Author"
@@ -48,7 +63,7 @@ class ListBooks extends Component {
           <ol className="books-grid">
             {query && showingBooks.map(book => (
               <li key={book.id}>
-                <Book {...book} onChangeCategory={onChangeCategory}/>
+                <Book {...book} onChangeCategory={this.changeCategory}/>
               </li>
             ))}
           </ol>
@@ -59,7 +74,8 @@ class ListBooks extends Component {
 }
 
 ListBooks.propTypes = {
-  books: PropTypes.array.isRequired
+  books: PropTypes.array.isRequired,
+  onChangeCategory: PropTypes.func.isRequired
 }
 
 export default ListBooks;

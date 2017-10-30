@@ -1,30 +1,64 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Book from './Book';
 import PropTypes from 'prop-types';
+import sortBy from 'sort-by';
+import WaitingScreen from './WaitingScreen';
 
-const BookShelf = (props) => {
-  return (
-    <div className="bookshelf">
-      <h2 className="bookshelf-title">{props.title}</h2>
-      <div className="bookshelf-books">
-        <ol className="books-grid">
-          {props.books
-            .filter((book) => props.shelf === book.shelf)
-            .map(book => (
-              <li key={book.id}>
-                <Book {...book} onChangeCategory={props.onChangeCategory} />
-              </li>
-          ))}
-        </ol>
+class BookShelf extends Component {
+
+  state = {
+    loading: false
+  }
+
+  changeCategory = (id, category) => {
+    this.setState({ loading: true });
+    this.props.onChangeCategory(id, category);
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ loading: false });
+  }
+
+  render () {
+    const { title, books, shelf } = this.props;
+    const { loading } = this.state;
+
+    if (loading) return <WaitingScreen text="Updating bookshelves..." />;
+
+    let bookshelves = books
+      .filter((book) => shelf === book.shelf)
+      .sort(sortBy('title'))
+      .map(book => (
+        <li key={book.id}>
+          <Book {...book} onChangeCategory={this.changeCategory} />
+        </li>
+      ))
+
+    let bookshelfCount = bookshelves.length;
+
+    return (
+      <div className="bookshelf">
+        <h2 className="bookshelf-title">{title} <span className="bookshelf-count">({bookshelfCount})</span></h2>
+          {bookshelfCount === 0 && (
+            <p>There is no book in this bookshelf.</p>
+          )}
+        <div className="bookshelf-books">
+          {bookshelfCount > 0 && (
+            <ol className="books-grid">
+              {bookshelves}
+            </ol>
+          )}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 BookShelf.propTypes = {
   title: PropTypes.string.isRequired,
   books: PropTypes.array.isRequired,
-  shelf: PropTypes.string.isRequired
+  shelf: PropTypes.string.isRequired,
+  onChangeCategory: PropTypes.func.isRequired
 }
 
 export default BookShelf;

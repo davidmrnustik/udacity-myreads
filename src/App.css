@@ -29,6 +29,10 @@ body, .app {
 .bookshelf {
   padding: 0 10px 20px;
 }
+.bookshelf-count {
+  font-size: 0.8em;
+  font-weight: normal;
+}
 
 @media (min-width: 600px) {
   .bookshelf {
