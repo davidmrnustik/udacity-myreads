@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import SelectCategory from './SelectCategory';
 import { ModalCustomStyles } from './ModalCustomStyles';
 import Truncate from 'react-truncate';
 import ReactStars from 'react-stars';
@@ -39,15 +40,11 @@ class Book extends Component {
             }}>
           </div>
           <div className="book-shelf-changer">
-            <select
-              onChange={(event) => this.onChangeCategory(id, event.target.value)}
-              value={shelf}>
-              <option value="none" disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
-            </select>
+            <SelectCategory
+              shelf={shelf}
+              id={id}
+              onChangeCategory={this.onChangeCategory}
+            />
           </div>
         </div>
         <div className="book-title" onClick={this.openModal}>{title}</div>
@@ -63,15 +60,11 @@ class Book extends Component {
           <div style={ModalCustomStyles.modalTitle}>{title}</div>
           <div style={ModalCustomStyles.modalCover}>
             <img src={imageLinks.thumbnail} alt={title} />
-            <select
-              onChange={(event) => this.onChangeCategory(id, event.target.value)}
-              value={shelf}>
-              <option value="none" disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
-            </select>
+            <SelectCategory
+              shelf={shelf}
+              id={id}
+              onChangeCategory={this.onChangeCategory}
+            />
           </div>
           <div style={ModalCustomStyles.modalDescription}>
             <div style={ModalCustomStyles.modalAuthors}>
