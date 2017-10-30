@@ -20,13 +20,12 @@ class BookShelf extends Component {
   }
 
   render () {
-    const { title, books, shelf } = this.props;
+    const { title, books } = this.props;
     const { loading } = this.state;
 
     if (loading) return <WaitingScreen text="Updating bookshelves..." />;
 
     let bookshelves = books
-      .filter((book) => shelf === book.shelf)
       .sort(sortBy('title'))
       .map(book => (
         <li key={book.id}>
@@ -59,7 +58,6 @@ class BookShelf extends Component {
 BookShelf.propTypes = {
   title: PropTypes.string.isRequired,
   books: PropTypes.array.isRequired,
-  shelf: PropTypes.string.isRequired,
   onChangeCategory: PropTypes.func.isRequired
 }
 
