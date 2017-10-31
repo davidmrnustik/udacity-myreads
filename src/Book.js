@@ -19,9 +19,10 @@ class Book extends Component {
     infoLink: PropTypes.string,
     averageRating: PropTypes.number,
     description: PropTypes.string,
-    authors: PropTypes.array
+    authors: PropTypes.array,
+    onChangeCategory: PropTypes.func.isRequired
   }
-  
+
   state = {
     modalIsOpen: false
   }
@@ -34,12 +35,8 @@ class Book extends Component {
     this.setState({ modalIsOpen: false });
   }
 
-  onChangeCategory = (id, category) => {
-    this.props.onChangeCategory(id, category);
-  }
-
   render() {
-    const { id, imageLinks, shelf, title, authors, description, infoLink, averageRating } = this.props;
+    const { id, imageLinks, shelf, title, authors, description, infoLink, averageRating, onChangeCategory } = this.props;
     const { modalIsOpen } = this.state;
 
     return (
@@ -58,7 +55,7 @@ class Book extends Component {
             <SelectCategory
               shelf={shelf}
               id={id}
-              onChangeCategory={this.onChangeCategory}
+              onChangeCategory={onChangeCategory}
             />
           </div>
         </div>
@@ -78,7 +75,7 @@ class Book extends Component {
             <SelectCategory
               shelf={shelf}
               id={id}
-              onChangeCategory={this.onChangeCategory}
+              onChangeCategory={onChangeCategory}
             />
           </div>
           <div style={ModalCustomStyles.modalDescription}>
