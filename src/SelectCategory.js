@@ -6,6 +6,11 @@ import PropTypes from 'prop-types';
  * select form with book categories.
  */
 class SelectCategory extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    shelf: PropTypes.string.isRequired,
+    onChangeCategory: PropTypes.func.isRequired
+  }
   onChangeCategory = (id, category) => {
     this.props.onChangeCategory(id, category);
   }
@@ -25,12 +30,6 @@ class SelectCategory extends Component {
       </select>
     )
   }
-}
-
-SelectCategory.propTypes = {
-  id: PropTypes.string.isRequired,
-  shelf: PropTypes.string.isRequired,
-  onChangeCategory: PropTypes.func.isRequired
 }
 
 export default SelectCategory;

@@ -11,6 +11,17 @@ import ReactStars from 'react-stars';
  * There is a modal window that shows more information.
  */
 class Book extends Component {
+  static propTypes = {
+    id: PropTypes.string,
+    imageLinks: PropTypes.object,
+    shelf: PropTypes.string,
+    title: PropTypes.string,
+    infoLink: PropTypes.string,
+    averageRating: PropTypes.number,
+    description: PropTypes.string,
+    authors: PropTypes.array
+  }
+  
   state = {
     modalIsOpen: false
   }
@@ -100,17 +111,6 @@ class Book extends Component {
       </div>
     )
   }
-}
-
-Book.propTypes = {
-  id: PropTypes.string,
-  imageLinks: PropTypes.object,
-  shelf: PropTypes.string,
-  title: PropTypes.string,
-  infoLink: PropTypes.string,
-  averageRating: PropTypes.number,
-  description: PropTypes.string,
-  authors: PropTypes.array
 }
 
 export default Book;

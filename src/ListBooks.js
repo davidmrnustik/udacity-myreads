@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import BookShelf from './BookShelf';
 import { Link } from 'react-router-dom';
-import Book from './Book';
-import sortBy from 'sort-by';
-import escapeRegExp from 'escape-string-regexp';
-import WaitingScreen from './WaitingScreen';
 
 /**
- * ListBooks handles search functionality that matches
- * input query. It receives books props and renders
- * input form and Book components.
+ * ListBooks handles main view with title
+ * and bookshelves. It receives books props
+ * and renders BookShelf components.
  */
 class ListBooks extends Component {
   static propTypes = {
@@ -17,70 +14,39 @@ class ListBooks extends Component {
     onChangeCategory: PropTypes.func.isRequired
   }
 
-  state = {
-    query: '',
-    loading: false
-  }
-
-  updateQuery = (query) => {
-    this.setState({ query: query.trim() })
-  }
-
-  changeCategory = (id, category) => {
-    this.setState({ loading: true });
-    this.props.onChangeCategory(id, category);
-  }
-
-  componentWillReceiveProps() {
-    this.setState({ loading: false });
-  }
-
   render() {
-    const { books } = this.props;
-    const { query, loading } = this.state;
+    const { books, onChangeCategory } = this.props;
 
-    if (loading) return <WaitingScreen text='Updating books list...' />;
-
-    let showingBooks;
-    if (query) {
-      const match = new RegExp(escapeRegExp(query), 'i');
-      showingBooks = books.filter((book) => match.test(book.title) || match.test(book.authors));
-      showingBooks.sort(sortBy('title'));
-    }
-
-    return (
-      <div>
-        <div className='search-books-bar'>
-          <Link
-            to='/'
-            className='close-search'
-          >Close search</Link>
-          <input
-            type='text'
-            value={query}
-            onChange={(event) => this.updateQuery(event.target.value)}
-            className='search-books-input-wrapper'
-            placeholder='Search by Title or Author'
-          />
+    return(
+      <div className='list-books'>
+        <div className='list-books-title'>
+          <h1>MyReads</h1>
         </div>
-
-        <div className='search-books-results'>
-          <ol className='books-grid'>
-            {query && showingBooks.map(book => (
-              <li key={book.id}>
-                <Book {...book} onChangeCategory={this.changeCategory}/>
-              </li>
-            ))}
-          </ol>
+        <div className='list-books-content'>
+          <div>
+            <BookShelf
+              title='Currently Reading'
+              books={books.filter(book => book.shelf === 'currentlyReading')}
+              onChangeCategory={onChangeCategory}
+            />
+            <BookShelf
+              title='Want to Read'
+              books={books.filter(book => book.shelf === 'wantToRead')}
+              onChangeCategory={onChangeCategory}
+            />
+            <BookShelf
+              title='Read'
+              books={books.filter(book => book.shelf === 'read')}
+              onChangeCategory={onChangeCategory}
+            />
+          </div>
+        </div>
+        <div className='open-search'>
+          <Link to='/search'>Add a book</Link>
         </div>
       </div>
     )
   }
-}
-
-ListBooks.propTypes = {
-  books: PropTypes.array.isRequired,
-  onChangeCategory: PropTypes.func.isRequired
 }
 
 export default ListBooks;

@@ -5,11 +5,16 @@ import sortBy from 'sort-by';
 import WaitingScreen from './WaitingScreen';
 
 /**
- * BookShelf renders BookShelf or Category of books.
+ * BookShelf renders bookshelves or Category of books.
  * It receives filtered books props and renders
  * Book components.
  */
 class BookShelf extends Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    books: PropTypes.array.isRequired,
+    onChangeCategory: PropTypes.func.isRequired
+  }
 
   state = {
     loading: false
@@ -58,12 +63,6 @@ class BookShelf extends Component {
       </div>
     )
   }
-}
-
-BookShelf.propTypes = {
-  title: PropTypes.string.isRequired,
-  books: PropTypes.array.isRequired,
-  onChangeCategory: PropTypes.func.isRequired
 }
 
 export default BookShelf;
